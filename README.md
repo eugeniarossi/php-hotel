@@ -2,7 +2,6 @@
 
 Stampare tutti i nostri hotel con tutti i dati disponibili.
 
-Stampate in pagina i dati.
 Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
 
 ## Bonus:
