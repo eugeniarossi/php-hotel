@@ -40,6 +40,17 @@ $hotels = [
 
 ];
 
+$filter = $_GET['filter'];
+
+function filtered_hotels($filter, $hotels){
+    if ($filter === 'all') {
+        return $hotels;
+    } else {
+        return $hotels = [];
+    };
+}
+
+
 /* MOSTRARE IN PAGINA I DATI
 
 // attraverso l'array hotels
@@ -85,6 +96,20 @@ for ($i = 0; $i < count($hotels); $i++) {
 
 <body>
     <div class="container">
+        <form method="GET" class="d-flex flex-column align-items-start gap-3 my-4">
+            <div class="d-flex gap-5 align-items-center">
+                <div class="d-flex gap-2 align-items-center">
+                    <label for="all">Tutti</label>
+                    <input class="form-check-input mt-0" type="radio" value="all" id="all" name="filter">
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                    <label for="parking">Con parcheggio</label>
+                    <input class="form-check-input mt-0" type="radio" value="with_p" id="parking" name="filter">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
         <!-- tabella -->
         <table class="table table-striped table-hover">
             <!-- intestazione tabella -->
@@ -102,9 +127,9 @@ for ($i = 0; $i < count($hotels); $i++) {
             <!-- corpo tabella -->
             <tbody>
                 <!-- attraverso l'array hotels -->
-                <?php for ($i = 0; $i < count($hotels); $i++):
+                <?php for ($i = 0; $i < count(filtered_hotels($filter, $hotels)); $i++) :
                     $n = $i + 1;
-                    $hotel = $hotels[$i];
+                    $hotel = filtered_hotels($filter, $hotels)[$i];
                 ?>
 
                     <!-- riga tabella -->
@@ -112,7 +137,7 @@ for ($i = 0; $i < count($hotels); $i++) {
                         <th scope="row"><?php echo $n ?></th>
 
                         <!-- attraverso ogni array associativo in hotels -->
-                        <?php foreach ($hotel as $key => $value): ?>
+                        <?php foreach ($hotel as $key => $value) : ?>
                             <!-- cella tabella -->
                             <td><?php
                                 // se value è un valore booleano 
@@ -123,10 +148,10 @@ for ($i = 0; $i < count($hotels); $i++) {
                                 } else {
                                     echo $value;
                                 }
-                            ?></td>
+                                ?></td>
                             <!-- /cella tabella -->
 
-                        <!-- chiudo il ciclo foreach -->
+                            <!-- chiudo il ciclo foreach -->
                         <?php endforeach; ?>
                     </tr>
                     <!-- /riga tabella -->
