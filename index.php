@@ -40,23 +40,27 @@ $hotels = [
 
 ];
 
+// salvo il valore del parametro filter
 $filter = $_GET['filter'];
 
+// funzione per filtrare lista hotel
 function filtered_hotels($filter, $hotels){
-    if ($filter === 'all') {
-        return $hotels;
-    } else {
+    if ($filter === 'with_p') {
         // filtro parking
         $parking_hotels = [];
         foreach ($hotels as $hotel) {
+            // se parking è true
             if($hotel['parking'] === true) {
+                // aggiungo l'hotel nell'array hotel filtrati
                 array_push($parking_hotels, $hotel);
             }
         }
+        // restituisco gli hotel filtrati
         return $parking_hotels;
+    } else {
+        return $hotels;
     };
 }
-
 
 /* MOSTRARE IN PAGINA I DATI
 
@@ -103,19 +107,18 @@ for ($i = 0; $i < count($hotels); $i++) {
 
 <body>
     <div class="container">
+        <!-- form -->
         <form method="GET" class="d-flex flex-column align-items-start gap-3 my-4">
             <div class="d-flex gap-5 align-items-center">
                 <div class="d-flex gap-2 align-items-center">
-                    <label for="all">Tutti</label>
-                    <input class="form-check-input mt-0" type="radio" value="all" id="all" name="filter">
-                </div>
-                <div class="d-flex gap-2 align-items-center">
                     <label for="parking">Con parcheggio</label>
-                    <input class="form-check-input mt-0" type="radio" value="with_p" id="parking" name="filter">
+                    <input class="form-check-input mt-0" type="checkbox" value="with_p" id="parking" name="filter">
                 </div>
+                <button type="reset" class="btn btn-secondary">Azzera i campi</button>
             </div>
             <button type="submit" class="btn btn-primary">Filtra</button>
         </form>
+        <!-- /form -->
 
         <!-- tabella -->
         <table class="table table-striped table-hover">
