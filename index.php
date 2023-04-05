@@ -46,7 +46,14 @@ function filtered_hotels($filter, $hotels){
     if ($filter === 'all') {
         return $hotels;
     } else {
-        return $hotels = [];
+        // filtro parking
+        $parking_hotels = [];
+        foreach ($hotels as $hotel) {
+            if($hotel['parking'] === true) {
+                array_push($parking_hotels, $hotel);
+            }
+        }
+        return $parking_hotels;
     };
 }
 
@@ -107,7 +114,7 @@ for ($i = 0; $i < count($hotels); $i++) {
                     <input class="form-check-input mt-0" type="radio" value="with_p" id="parking" name="filter">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Filtra</button>
         </form>
 
         <!-- tabella -->
@@ -141,7 +148,7 @@ for ($i = 0; $i < count($hotels); $i++) {
                             <!-- cella tabella -->
                             <td><?php
                                 // se value è un valore booleano 
-                                if (is_bool($value)) {
+                                if(is_bool($value)) {
                                     // stampa 'true' se è vero e 'false' se è falso
                                     echo $value ? 'true' : 'false';
                                     // altrimenti stampa value
